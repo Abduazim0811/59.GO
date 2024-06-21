@@ -32,19 +32,38 @@ func (s *WeatherServer) GetWeatherUpdates(req *pb.WeatherRequest, stream pb.Weat
 		time.Sleep(5 * time.Second)
 	}
 }
-
+var (
+	Descriptions string
+)
 
 func getDescription() string {
 	descriptions := []string{"Sunny", "Cloudy","Rainy","Windy"}
-	return descriptions[rand.Intn(len(descriptions))]
+	Descriptions = descriptions[rand.Intn(len(descriptions))]
+	return Descriptions
 }
 
 func getTemperatura()float32{
-	return 20 + rand.Float32()*(35-20)
+	if Descriptions == "Sunny"{
+		return 30 + rand.Float32()*(45-30)
+	}else if Descriptions == "Cloudy"{
+		return 20 + rand.Float32()*(30-20)
+	}else if Descriptions == "Rainy"{
+		return 15 + rand.Float32()*(20-15)
+	}else{
+		return 5 + rand.Float32()*(15-5)
+	}
 }
 
 func getHumidity()float32{
-	return  40 + rand.Float32()*(80-40)
+	if Descriptions == "Sunny"{
+		return 5 + rand.Float32()*(10-5)
+	}else if Descriptions == "Cloudy"{
+		return 20 + rand.Float32()*(30-20)
+	}else if Descriptions == "Rainy"{
+		return 50 + rand.Float32()*(70-50)
+	}else{
+		return 30 + rand.Float32()*(40-30)
+	}
 }
 
 func main(){
